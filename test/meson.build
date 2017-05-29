@@ -1,0 +1,2 @@
+subdir('./trivial')
+subdir('./predicates')
