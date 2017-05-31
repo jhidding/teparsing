@@ -9,7 +9,7 @@ subdir('./src')
 local_include = include_directories('src')
 
 add_project_arguments(
-    '-std=c++17',
+    ['-Wall', '-Werror', '-std=c++17'],
     include_directories: local_include,
     language: 'cpp')
 
@@ -28,11 +28,11 @@ test_trivial = executable(
 test('trivial', test_trivial)
 
 
-test_predicates = executable(
-    'test-predicates',
-    test_predicates_files,
+test_parsing = executable(
+    'test-parsing',
+    test_parsing_files,
     dependencies: [gtest_dep],
     include_directories: local_include)
 
-test('predicates', test_predicates)
+test('parsing', test_parsing)
 

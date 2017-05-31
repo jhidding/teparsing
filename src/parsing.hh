@@ -1,64 +1,30 @@
+/* Copyright 2017 Johan Hidding
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
 #pragma once
 
 /* Based on Parser-Combinators by Keean Schupke */
 
-#include <type_traits>
-#include <string>
+#include "predicate/predicates.hh"
+#include "operators.hh"
+#include "fold_tuple.hh"
+#include "traits.hh"
+#include "string_utils.hh"
+
+#include <map>
 
 namespace Parsing
 {
-    namespace predicate
-    {
-        template <typename char_t>
-        struct any_t
-        {
-            using is_predicate_type = std::true_type;
-            static constexpr int rank = 0;
 
-            constexpr any_t() {}
-
-            bool operator()(char_t c) const
-            {
-                return c != std::char_traits<char_t>::eof();
-            }
-
-            std::string name() const
-            {
-                return "anything";
-            }
-        };
-
-        template <typename char_t>
-        constexpr any_t<char_t> any;
-
-        template <typename char_t>
-        struct equal_t
-        {
-            char_t const value;
-
-            using is_predicate_type = std::true_type;
-            static constexpr int rank = 0;
-
-            constexpr equal_t(char_t c)
-                : value(c)
-            {}
-
-            bool operator()(char_t c) const
-            {
-                return c == value;
-            }
-            
-            std::string name() const
-            {
-                return "'" + std::string(1, value) + "'";
-            }
-        };
-
-        template <typename char_t>
-        constexpr equal_t<char_t> equal(char_t c)
-        {
-            return equal_t<char_t>(c);
-        }
-    }
 }
-

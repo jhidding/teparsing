@@ -1,6 +1,3 @@
-#!/bin/bash
-
-license_text=$(cat << EOF
 /* Copyright 2017 Johan Hidding
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,20 +12,30 @@ license_text=$(cat << EOF
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-EOF
-)
+#include <gtest/gtest.h>
 
-echo "Adding the following header to all source files that don't start with a comment."
-echo "---"
-echo "${license_text}"
-echo "---"
+#include "fold_tuple.hh"
 
-files=$(find src test -regex '.*\.\(cc\|hh\)' -not -path 'test/gtest/*' -not -path 'test/gmock/*')
-for f in ${files}; do
-        content=$(cat ${f})
-        if ! [[ "${content}" =~ ^\/\*\ Copyright.* ]]; then
-                echo "${f}"
-                echo "${license_text}" > ${f}
-                echo "${content}" >> ${f}
-        fi
-done
+using namespace Parsing;
+
+struct A
+{
+    int x;
+    A(int x): x(x) {}
+};
+
+struct B
+{
+    int x;
+    B(int x): x(x) {}
+};
+
+TEST(Functional, PolymorphicFold)
+{
+    auto a = std::make_tuple(A(2), B(3), A(4));
+    int y = fold_tuple(
+        [] (int t, auto q) { return t * q.x; },
+        1, a);
+
+    EXPECT_EQ(y, 24);
+}

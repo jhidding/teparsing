@@ -1,6 +1,3 @@
-#!/bin/bash
-
-license_text=$(cat << EOF
 /* Copyright 2017 Johan Hidding
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,20 +12,21 @@ license_text=$(cat << EOF
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-EOF
-)
+#pragma once
 
-echo "Adding the following header to all source files that don't start with a comment."
-echo "---"
-echo "${license_text}"
-echo "---"
+#include <string>
+#include <utility>
 
-files=$(find src test -regex '.*\.\(cc\|hh\)' -not -path 'test/gtest/*' -not -path 'test/gmock/*')
-for f in ${files}; do
-        content=$(cat ${f})
-        if ! [[ "${content}" =~ ^\/\*\ Copyright.* ]]; then
-                echo "${f}"
-                echo "${license_text}" > ${f}
-                echo "${content}" >> ${f}
-        fi
-done
+namespace Parsing {
+namespace string
+{
+    inline std::string join(std::string const &sep, std::string const &str) {
+        return str;
+    }
+
+    template <typename... Strs>
+    inline std::string join(std::string const &sep, std::string const &str, Strs &&...strs)
+    {
+        return str + sep + join(sep, std::forward<Strs>(strs)...);
+    }
+}}

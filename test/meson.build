@@ -1,2 +1,2 @@
 subdir('./trivial')
-subdir('./predicates')
+subdir('./parsing')
