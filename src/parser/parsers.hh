@@ -62,7 +62,7 @@ namespace parser {
             {
                 char_type sym;
 
-                if (i == r.last) {
+                if (i == r.end()) {
                     sym = std::char_traits<char_type>::eof();
                 } else {
                     sym = *i;
@@ -122,7 +122,7 @@ namespace parser {
             {
                 for (char const *j = s; *j != 0; ++j)
                 {
-                    if (i == r.last || *i != *j) {
+                    if (i == r.end() || *i != *j) {
                         return false;
                     }
                     ++i;

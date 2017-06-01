@@ -33,7 +33,7 @@ namespace Parsing
         Iterator i(r.first);
         Iterator line_start(r.first);
         int row = 1;
-        while ((i != r.last) && (i != f)) {
+        while ((i != r.end()) && (i != f)) {
             if (*i == '\n') {
                 ++row;
                 line_start = ++i;
@@ -46,7 +46,7 @@ namespace Parsing
             << " column: " << f - line_start + 1 << std::endl;
 
         bool in = true;
-        for (Iterator i(line_start); (i != r.last) && (in || *i != '\n'); ++i) {
+        for (Iterator i(line_start); (i != r.end()) && (in || *i != '\n'); ++i) {
             if (i == l) {
                 in = false;
             }

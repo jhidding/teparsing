@@ -1,7 +1,7 @@
 #!/bin/bash
 
 license_text=$(cat << EOF
-/* Copyright 2017 Johan Hidding
+/* Copyright 2014 Keean Schupke, 2017 Johan Hidding
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
