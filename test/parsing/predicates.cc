@@ -65,3 +65,14 @@ TEST(Predicates, Except)
     EXPECT_TRUE(b('r'));
     EXPECT_EQ(b.name(), "('p' | 'q' | 'r') - 'q'");
 }
+
+TEST(Predicates, Space)
+{
+    using predicate::space;
+
+    EXPECT_TRUE(space<char>(' '));
+    EXPECT_TRUE(space<char>('\n'));
+    EXPECT_TRUE(space<char>('\t'));
+    EXPECT_FALSE(space<char>('a'));
+    EXPECT_EQ(space<char>.name(), "space");
+}

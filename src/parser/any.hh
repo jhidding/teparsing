@@ -110,7 +110,7 @@ namespace parser
                 result, st);
         }
 
-        string ebnf(dictionary *defs = nullptr) const
+        string ebnf(dictionary_t *defs = nullptr) const
         {
             return fold_tuple(
                 [rank, defs] (std::string const &s, auto &&p)
@@ -124,7 +124,8 @@ namespace parser
     };
 
     template <typename F, typename... PS>
-    constexpr any_t<F, PS...> const any(F const& f, PS const&... ps) {
+    constexpr any_t<F, PS...> any(F const& f, PS const&... ps)
+    {
         return any_t<F, PS...>(f, ps...);
     }
 }}

@@ -20,7 +20,7 @@ namespace Parsing {
 namespace parser
 {
     template <typename Parser>
-    class parser_log
+    class log_t
     {
         Parser const p;
         string const msg;
@@ -32,7 +32,7 @@ namespace parser
             using result_type = typename Parser::result_type;
             int const rank;
 
-            constexpr explicit parser_log(string const &s, Parser const& q)
+            constexpr explicit log_t(string const &s, Parser const& q)
                 : p(q)
                 , msg(s)
                 , rank(q.rank)
@@ -65,7 +65,7 @@ namespace parser
                 return b;
             }
 
-            std::string ebnf(dictionary *defs = nullptr) const
+            std::string ebnf(dictionary_t *defs = nullptr) const
             {
                 return p.ebnf(defs);
             }

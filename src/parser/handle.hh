@@ -37,7 +37,7 @@ namespace parser
                         Synthesize *result = nullptr,
                         Inherit *st = nullptr) const = 0;
 
-                virtual std::string ebnf(dictionary *defs = nullptr) const = 0;
+                virtual std::string ebnf(dictionary_t *defs = nullptr) const = 0;
         };
 
         template <typename Parser>
@@ -61,7 +61,7 @@ namespace parser
                     return p(i, r, result, st);
                 }
 
-                virtual std::string ebnf(dictionary *defs = nullptr) const override
+                virtual std::string ebnf(dictionary_t *defs = nullptr) const override
                 {
                     return p.ebnf(defs);
                 }
@@ -143,7 +143,7 @@ namespace parser
             return p->parse(i, r, result, st);
         }
 
-        string ebnf(dictionary *defs = nullptr) const
+        string ebnf(dictionary_t *defs = nullptr) const
         {
             return p->ebnf(defs);
         }

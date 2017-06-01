@@ -49,7 +49,7 @@ namespace parser
                 return p(i, r, result, st);
             }
 
-            std::string ebnf(dictionary *defs = nullptr) const
+            std::string ebnf(dictionary_t *defs = nullptr) const
             {
                 std::string const n = p.ebnf(defs);
                 if (defs != nullptr) {

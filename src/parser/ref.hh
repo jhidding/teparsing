@@ -47,7 +47,7 @@ namespace parser
                 return (*p)(i, r, result, st);
             }
 
-            std::string ebnf(dictionary *defs = nullptr) const
+            std::string ebnf(dictionary_t *defs = nullptr) const
             {
                 if (defs != nullptr) {
                     auto i = defs->find(name);

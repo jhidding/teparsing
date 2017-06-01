@@ -53,7 +53,7 @@ namespace combinator
             return p1(i, r, result, st) && p2(i, r, result, st);
         }
 
-        std::string ebnf(dictionary* defs = nullptr) const
+        std::string ebnf(dictionary_t* defs = nullptr) const
         {
             return format_name(p1, rank, defs) + ", "
                  + format_name(p2, rank, defs);

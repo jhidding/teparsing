@@ -16,6 +16,7 @@
 
 #include <string>
 #include <type_traits>
+#include <cctype>
 
 namespace Parsing {
 namespace predicate
@@ -139,4 +140,34 @@ namespace predicate
                 return format_name(p1, rank) + " - " + format_name(p2, rank);
             }
     };
+
+    template <typename char_t>
+    class ctype_pred_t
+    {
+        int (* const pred)(int);
+        char const *c_name;
+
+        public:
+            using char_type = char_t;
+            using is_predicate_type = std::true_type;
+            static constexpr int rank = 0;
+
+            constexpr ctype_pred_t(int (* pred)(int), char const *name)
+                : pred(pred)
+                , c_name(name)
+            {}
+
+            bool operator()(char_type c) const
+            {
+                return pred((int)c);
+            }
+
+            std::string name() const
+            {
+                return c_name;
+            }
+    };
+
+    template <typename char_t>
+    constexpr ctype_pred_t<char_t> space(::isspace, "space");
 }}

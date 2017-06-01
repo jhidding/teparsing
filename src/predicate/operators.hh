@@ -14,18 +14,25 @@
  */
 #pragma once
 
-/* Based on Parser-Combinators by Keean Schupke */
-
 #include "predicate/predicates.hh"
-#include "predicate/operators.hh"
-#include "combinator/operators.hh"
-#include "fold_tuple.hh"
-#include "traits.hh"
-#include "string_utils.hh"
-
-#include <map>
 
 namespace Parsing
 {
+    template <typename P1,
+              typename P2,
+              typename = typename P1::is_predicate_type,
+              typename = typename P2::is_predicate_type>
+    constexpr predicate::either_t<P1, P2> operator|(P1 const &p1, P2 const &p2)
+    {
+        return predicate::either_t<P1, P2>(p1, p2);
+    }
 
+    template <typename P1,
+              typename P2,
+              typename = typename P1::is_predicate_type,
+              typename = typename P2::is_predicate_type>
+    constexpr predicate::except_t<P1, P2> operator-(P1 const &p1, P2 const &p2)
+    {
+        return predicate::except_t<P1, P2>(p1, p2);
+    }
 }

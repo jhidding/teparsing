@@ -100,7 +100,7 @@ namespace parser
                 return fmap_all(i, r, std::make_index_sequence<sizeof...(Parsers)>(), result, st);
             }
 
-            std::string ebnf(dictionary *defs = nullptr) const
+            std::string ebnf(dictionary_t *defs = nullptr) const
             {
                 if (std::tuple_size<tuple_type>::value == 1)
                     return format_name(get<0>(ps), rank, defs);
@@ -112,12 +112,13 @@ namespace parser
                         return format_name(p, rank, defs);
                     }
                     return s + ", " + format_name(p, rank, defs);
-                }, string(), ps);
+                }, std::string(), ps);
             }
     };
 
     template <typename F, typename... PS>
-    constexpr all_t<F, PS...> const all(F const& f, PS const&... ps) {
+    constexpr all_t<F, PS...> const all(F const& f, PS const&... ps)
+    {
         return all_t<F, PS...>(f, ps...);
     }
 }}

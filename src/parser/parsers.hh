@@ -24,7 +24,7 @@ namespace parser {
 
     template <typename P,  typename = typename P::is_parser_type>
     std::string format_name(
-            P const &p, int const rank, dictionary* defs = nullptr)
+            P const &p, int const rank, dictionary_t* defs = nullptr)
     {
         if (p.rank > rank) {
             return "(" + p.ebnf(defs) + ")";
@@ -81,7 +81,7 @@ namespace parser {
                 return true;
             }
 
-            std::string ebnf(dictionary *defs = nullptr) const
+            std::string ebnf(dictionary_t *defs = nullptr) const
             {
                 return p.name();
             }
@@ -135,7 +135,7 @@ namespace parser {
                 return true;
             }
 
-            std::string ebnf(dictionary *defs = nullptr) const
+            std::string ebnf(dictionary_t *defs = nullptr) const
             {
                 return "\"" + std::string(s) + "\"";
             }
@@ -169,7 +169,7 @@ namespace parser {
                 return true;
             }
 
-            std::string ebnf(dictionary *defs = nullptr) const
+            std::string ebnf(dictionary_t *defs = nullptr) const
             {
                 return "pass";
             }
@@ -202,7 +202,7 @@ namespace parser {
                 return false;
             }
 
-            std::string ebnf(dictionary *defs = nullptr) const {
+            std::string ebnf(dictionary_t *defs = nullptr) const {
                 return "fail";
             }
     };

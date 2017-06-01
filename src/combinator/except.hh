@@ -59,7 +59,7 @@ namespace combinator
             return false;
         }
 
-        std::string ebnf(dictionary* defs = nullptr) const {
+        std::string ebnf(dictionary_t* defs = nullptr) const {
             return p.ebnf(defs) + " - \"" + x + "\"";
         }
     };

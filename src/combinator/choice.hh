@@ -65,7 +65,7 @@ namespace combinator {
                 return false;
             }
 
-            std::string ebnf(dictionary *defs = nullptr) const {
+            std::string ebnf(dictionary_t *defs = nullptr) const {
                 return format_name(p1, rank, defs) + " | "
                      + format_name(p2, rank, defs);
             }

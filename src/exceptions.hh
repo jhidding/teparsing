@@ -21,7 +21,7 @@
 
 namespace Parsing
 {
-    using dictionary = std::map<std::string, std::string>;
+    using dictionary_t = std::map<std::string, std::string>;
 
     template <typename Parser, typename Iterator, typename Range>
     std::string error_message(
@@ -78,7 +78,7 @@ namespace Parsing
 
         err << std::endl << "expecting: ";
 
-        dictionary defs;
+        dictionary_t defs;
         err << p.ebnf(&defs) << std::endl << "where:" << std::endl;
 
         for (auto const& d : defs)
