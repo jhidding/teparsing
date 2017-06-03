@@ -15,6 +15,7 @@
 #pragma once
 
 #include <tuple>
+#include <functional>
 
 namespace Parsing
 {
@@ -31,6 +32,8 @@ namespace Parsing
     {
         static constexpr size_t arity = sizeof...(Args);
         using return_type = R;
+
+        using function_type = std::function<R (Args...)>;
 
         template <size_t N>
         struct arg
@@ -68,12 +71,13 @@ namespace Parsing
         using return_type = typename call_type::return_type;
 
         static constexpr size_t arity = call_type::arity - 1;
+        using function_type = typename call_type::function_type;
 
         template <size_t N>
         struct arg
         {
             static_assert(N < arity, "error: invalid argument index.");
-            using type = typename call_type::template argument<N+1>::type;
+            using type = typename call_type::template arg<N+1>::type;
         };
     };
 }

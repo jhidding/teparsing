@@ -19,8 +19,6 @@
 namespace Parsing {
 namespace combinator
 {
-    using parser::default_inherited;
-
     template <typename Parser>
     class many_t
     {
@@ -50,7 +48,7 @@ namespace combinator
                     first = i;
                 }
                 if (first != i) {
-                    throw parse_error("failed many-parser consumed input", p, first, i, r);
+                    throw error("failed many-parser consumed input", p, first, i, r);
                 }
                 return true;
             }

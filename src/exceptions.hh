@@ -30,8 +30,8 @@ namespace Parsing
     {
         std::ostringstream err;
 
-        Iterator i(r.first);
-        Iterator line_start(r.first);
+        Iterator i(r.begin());
+        Iterator line_start(r.begin());
         int row = 1;
         while ((i != r.end()) && (i != f)) {
             if (*i == '\n') {

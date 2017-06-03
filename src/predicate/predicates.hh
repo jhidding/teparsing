@@ -170,4 +170,7 @@ namespace predicate
 
     template <typename char_t>
     constexpr ctype_pred_t<char_t> space(::isspace, "space");
+
+    template <typename char_t>
+    constexpr ctype_pred_t<char_t> digit(::isdigit, "digit");
 }}

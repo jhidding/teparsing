@@ -9,7 +9,7 @@ subdir('./src')
 local_include = include_directories('src')
 
 add_project_arguments(
-    ['-Wall', '-Werror', '-std=c++17'],
+    ['-Wall', '-Werror', '-std=c++17', '-O3'],
     include_directories: local_include,
     language: 'cpp')
 

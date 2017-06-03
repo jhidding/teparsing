@@ -16,8 +16,9 @@
 
 #include <type_traits>
 #include <tuple>
+#include "parser/parsers.hh"
 
-namespace Parser
+namespace Parsing
 {
     //----------------------------------------------------------------------------
     // If all parsers succeed, pass all results as arguments to user supplied functor
@@ -32,6 +33,7 @@ namespace Parser
          typename std::enable_if
              <std::is_same<Inherit, default_inherited>::value>::type>
     {
+        // typename function_traits<Functor>::function_type const f;
         Functor const f;
 
         public:
@@ -53,6 +55,7 @@ namespace Parser
          typename std::enable_if
              <!std::is_same<Inherit, default_inherited>::value>::type>
     {
+        // typename function_traits<Functor>::function_type const f;
         Functor const f;
 
         public:

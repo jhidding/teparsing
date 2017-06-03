@@ -20,8 +20,6 @@
 
 namespace Parsing {
 namespace combinator {
-    using parser::default_inherited;
-
     template <typename Parser1, typename Parser2>
     class choice_t
     {

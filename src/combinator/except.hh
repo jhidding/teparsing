@@ -19,8 +19,6 @@
 namespace Parsing {
 namespace combinator
 {
-    using parser::default_inherited;
-
     template <typename Parser>
     class except_t
     {

@@ -19,9 +19,9 @@
 #include "traits.hh"
 
 namespace Parsing {
-namespace parser {
     struct default_inherited {};
 
+namespace parser {
     template <typename P,  typename = typename P::is_parser_type>
     std::string format_name(
             P const &p, int const rank, dictionary_t* defs = nullptr)

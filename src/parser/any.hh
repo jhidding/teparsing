@@ -23,22 +23,6 @@
 namespace Parsing {
 namespace parser
 {
-    template <typename Iterator, typename Range, typename Inherit, typename Rs, size_t I0, size_t... Is>
-    int any_parsers(Iterator &i, Range const &r, Inherit *st, Rs &rs, size_t, size_t...) const {
-        if (std::get<I0>(ps)(i, r, &std::get<I0>(rs), st)) {
-            return I0;
-        }
-        return any_parsers<Iterator, Range, Inherit, Rs, Is...>(i, r, st, rs, Is...);
-    }
-
-    template <typename Iterator, typename Range, typename Inherit, typename Rs, size_t I0>
-    int any_parsers(Iterator &i, Range const &r, Inherit *st, Rs &rs, size_t) const {
-        if (std::get<I0>(ps)(i, r, &std::get<I0>(rs), st)) {
-            return I0;
-        }
-        return -1;
-    }
-
     template <typename Functor, typename... Parsers>
     class any_t
     {
@@ -57,6 +41,24 @@ namespace parser
         parser_tuple const ps;
         Functor const f;
 
+        template <typename Iterator, typename Range, typename Inherit, typename Rs, size_t I0, size_t... Is>
+        int any_parsers(Iterator &i, Range const &r, Inherit *st, Rs &rs, size_t, size_t...) const
+        {
+            if (std::get<I0>(ps)(i, r, &std::get<I0>(rs), st)) {
+                return I0;
+            }
+            return any_parsers<Iterator, Range, Inherit, Rs, Is...>(i, r, st, rs, Is...);
+        }
+
+        template <typename Iterator, typename Range, typename Inherit, typename Rs, size_t I0>
+        int any_parsers(Iterator &i, Range const &r, Inherit *st, Rs &rs, size_t) const
+        {
+            if (std::get<I0>(ps)(i, r, &std::get<I0>(rs), st)) {
+                return I0;
+            }
+            return -1;
+        }
+
         template <typename Iterator,
                   typename Range,
                   typename Inherit,
@@ -64,23 +66,23 @@ namespace parser
         bool fmap_any(
                 Iterator &i,
                 Range const &r,
-                size_sequence<I...> seq,
+                std::index_sequence<I...> seq,
                 result_type *result,
                 Inherit* st) const
         {
             result_tuple tmp;
             Iterator const first = i;
 
-            int const j = any_parsers<Iterator, Range, Inherit, tmp_type, I...>(
+            int const j = any_parsers<Iterator, Range, Inherit, result_tuple, I...>(
                     i, r, st, tmp, I...);
 
             if (j >= 0) {
                 if (result != nullptr) {
                     call_any<Functor, Inherit> call_f(f);
                     try {
-                        call_f.template any<result_type, tmp_type, I...>(
+                        call_f.template any<result_type, result_tuple, I...>(
                             result, j, tmp, st, I...);
-                    } catch (runtime_error &e) {
+                    } catch (std::runtime_error &e) {
                         throw error(e.what(), *this, first, i, r);
                     }
                 }
@@ -110,10 +112,10 @@ namespace parser
                 result, st);
         }
 
-        string ebnf(dictionary_t *defs = nullptr) const
+        std::string ebnf(dictionary_t *defs = nullptr) const
         {
             return fold_tuple(
-                [rank, defs] (std::string const &s, auto &&p)
+                [this, defs] (std::string const &s, auto &&p)
             {
                 if (s.length() == 0) {
                     return format_name(p, rank, defs);
